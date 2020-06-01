@@ -1,12 +1,18 @@
 #!/usr/bin/ruby
 
-def inputer()
-  begin
-    system("stty raw -echo")
-    str = STDIN.getc
-  ensure
-    system("stty -raw echo")
+class Inputer
+  def initialize(default=false)
+    @defaultprompt = default
   end
-  p str.chr
+
+  def character()
+    begin
+      system("stty raw -echo")
+      print @defaultprompt if @defaultprompt
+      str = STDIN.getc
+    ensure
+      system("stty -raw echo")
+    end
+    return str.chr
+  end
 end
-inputer
